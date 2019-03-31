@@ -52,17 +52,27 @@ trait PageTemplates
                         'value' => '<br><h2>'.trans('backpack::pagemanager.content').'</h2><hr>',
                     ]);
         $this->crud->addField([   // Browse multiple
-                            'name' => 'files',
-                            'label' => 'Files',
+                            'label' => 'Image Carousel',
+                            'name' => 'carousel',
                             'type' => 'browse_multiple',
                             'multiple' => true, // enable/disable the multiple selection functionality
                             'mime_types' => ['image'], // visible mime prefixes; ex. ['image'] or ['application/pdf']
+                            'fake' => true,
+                            'store_in' => 'extras',
                         ]);
         $this->crud->addField([
                         'name' => 'content',
                         'label' => trans('backpack::pagemanager.content'),
                         'type' => 'wysiwyg',
                         'placeholder' => trans('backpack::pagemanager.content_placeholder'),
+                        'extra_plugins' => ['oembed', 'widget'],
+                        'options' => [
+                            'autoGrow_minHeight' => 1000,
+                            'autoGrow_bottomSpace' => 50,
+                            'allowedContent' => true,
+                            'heading' => [
+                            
+                            ]                        ],
                     ]);
     }
 

@@ -12,7 +12,26 @@
 */
 
 Route::get('/', function () { 
-	return view('home');
+	return redirect('home');
+});
+
+
+Route::get('uploads/{filename}', function ($filename)
+{
+
+    $path = storage_path('app/uploads/' . $filename);
+    // dd($path);
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
 });
 
 Route::get('contact-us', function () { 
@@ -22,3 +41,8 @@ Route::get('contact-us', function () {
 Route::post('contact-us', function () { 
 	return view('contact-us');
 })->name('contact-us.submit-form');
+
+Route::get('{page}/{subs?}', ['uses' => 'PageController@index'])->where(['page' => '^((?!admin).)*$', 'subs' => '.*']);
+
+
+
