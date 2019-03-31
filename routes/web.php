@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function () { 
+	return view('home');
 });
+
+Route::get('contact-us', function () { 
+	return view('contact-us');
+});
+
+Route::post('contact-us', function () { 
+	return view('contact-us');
+})->name('contact-us.submit-form');
